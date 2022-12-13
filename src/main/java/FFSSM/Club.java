@@ -9,13 +9,12 @@ import java.util.Set;
 public class Club {
 
  
-    public Moniteur president;
-
-    public String nom;
-
-    public String adresse;
-
-    public String telephone;
+    private Moniteur president;
+    private String nom;
+    private String adresse;
+    private String telephone;
+    private Set<Plongee> activites = new HashSet<>();
+    private Set<Licence> licences = new HashSet<>();
 
     public Club(Moniteur président, String nom, String telephone) {
         this.president = président;
@@ -30,8 +29,13 @@ public class Club {
      * @return l'ensemble des plongées non conformes
      */
     public Set<Plongee> plongeesNonConformes() {
-         // TODO: Implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        Set<Plongee> nonConformes = new HashSet<>();
+        for (Plongee p : activites){
+            if (!p.estConforme()){
+                nonConformes.add(p);
+            }
+        }
+        return nonConformes;
     }
 
     /**
@@ -39,10 +43,12 @@ public class Club {
      * @param p la nouvelle plongée
      */
     public void organisePlongee(Plongee p) {
-         // TODO: Implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        activites.add(p);
     }
     
+    public void ajouteLicence(Licence l) {
+        licences.add(l);
+    }
     
     public Moniteur getPresident() {
         return president;
@@ -74,6 +80,22 @@ public class Club {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public Set<Plongee> getActivites() {
+        return activites;
+    }
+
+    public void setActivites(Set<Plongee> activites) {
+        this.activites = activites;
+    }
+
+    public Set<Licence> getLicencesDelivrees() {
+        return licences;
+    }
+
+    public void setLicencesDelivrees(Set<Licence> licences) {
+        this.licences = licences;
     }
 
     @Override
